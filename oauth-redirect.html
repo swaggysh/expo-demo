@@ -3,36 +3,21 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Redirecting...</title>
+  <title>Sign-in successful</title>
   <style>
     body { font-family: system-ui; text-align: center; padding: 2rem; max-width: 320px; margin: 2rem auto; }
-    .btn { display: inline-block; margin-top: 1rem; padding: 12px 24px; background: #4285F4; color: white; text-decoration: none; border-radius: 8px; font-weight: 600; -webkit-tap-highlight-color: transparent; }
     .error { color: #c00; font-size: 0.9rem; }
   </style>
 </head>
 <body>
-  <p id="msg">Redirecting back to app...</p>
-  <p id="fallback" style="display:none;">Tap to open the app: <a id="openLink" href="#" class="btn">Open Biwa</a></p>
+  <p id="msg">Sign-in successful! Returning to app...</p>
   <p id="err" class="error" style="display:none;"></p>
   <script>
-    var params = new URLSearchParams(window.location.search);
-    var code = params.get('code');
+    var code = new URLSearchParams(window.location.search).get('code');
     if (!code) {
       document.getElementById('msg').style.display = 'none';
       document.getElementById('err').style.display = 'block';
       document.getElementById('err').textContent = 'No auth code received. Complete sign-in from the Biwa app.';
-    } else {
-      var qs = params.toString();
-      var target = 'biwaemonapp://auth' + (qs ? '?' + qs : '');
-      document.getElementById('openLink').href = target;
-      try {
-        window.location.replace(target);
-      } catch (e) {
-        document.getElementById('openLink').click();
-      }
-      setTimeout(function() {
-        document.getElementById('fallback').style.display = 'block';
-      }, 1500);
     }
   </script>
 </body>
