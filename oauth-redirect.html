@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Redirecting...</title>
+</head>
+<body>
+  <p>Redirecting back to app...</p>
+  <script>
+    // Google OAuth redirects here with ?code=...&state=...
+    // Forward all params to the app's custom scheme so expo-auth-session can complete
+    const params = new URLSearchParams(window.location.search);
+    const target = 'biwaemonapp://auth?' + params.toString();
+    window.location.replace(target);
+  </script>
+</body>
+</html>
