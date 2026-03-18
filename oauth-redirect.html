@@ -3,15 +3,22 @@
 <head>
   <meta charset="utf-8">
   <title>Redirecting...</title>
+  <style>
+    body { font-family: system-ui; text-align: center; padding: 2rem; }
+    .btn { display: inline-block; margin-top: 1rem; padding: 12px 24px; background: #4285F4; color: white; text-decoration: none; border-radius: 8px; font-weight: 600; }
+  </style>
 </head>
 <body>
   <p>Redirecting back to app...</p>
+  <p id="fallback" style="display:none;">If nothing happens, <a id="openLink" href="#" class="btn">tap here to open the app</a></p>
   <script>
-    // Google OAuth redirects here with ?code=...&state=...
-    // Forward all params to the app's custom scheme so expo-auth-session can complete
     const params = new URLSearchParams(window.location.search);
     const target = 'biwaemonapp://auth?' + params.toString();
+    document.getElementById('openLink').href = target;
     window.location.replace(target);
+    setTimeout(function() {
+      document.getElementById('fallback').style.display = 'block';
+    }, 2000);
   </script>
 </body>
 </html>
